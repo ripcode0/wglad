@@ -1,21 +1,29 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.28)
 
-add_library(glad STATIC glad/glad.h glad/glad.c)
-add_library(lib::glad ALIAS glad)
+project(wglad-0.1 LANGUAGES C VERSION 0.1)
+
+add_library(wglad STATIC ./include/wglad/wglad.cpp  ./include/wglad/glad.c)
+add_library(lib::wglad ALIAS wglad)
 
 #out variable for parent
-set(GLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
-set(GLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib PARENT_SCOPE)
-set(GLOBAR_LIB_DIR FALSE)
+set(GLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(GLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+if(NOT PROJECT_IS_TOP_LEVEL)
+    set(GLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
+    set(GLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib PARENT_SCOPE)
+endif()
 #set build out files
-if(NOT DEFINED LIB_DIR)
-    message(STATUS "glad lib place to : ${GLAD_LIB_DIR}")
-else()
+if(DEFINED LIB_DIR)
+    message(STATUS "glob on")
     set(GLAD_LIB_DIR ${LIB_DIR})
-    message(STATUS "glad lib place to : ${LIB_DIR}")
+    set(GLAD_LIB_DIR ${LIB_DIR} PARENT_SCOPE)
 endif()
 
-set_target_properties(glad  PROPERTIES
+message(STATUS "GLAD_INC_DIR : ${GLAD_INC_DIR}")
+message(STATUS "GLAD_LIB_DIR : ${GLAD_LIB_DIR}")
+
+set_target_properties(wglad  PROPERTIES
+    INCLUDE_DIRECTORIES ${GLAD_INC_DIR}
     ARCHIVE_OUTPUT_DIRECTORY ${GLAD_LIB_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${GLAD_LIB_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${GLAD_LIB_DIR})
