@@ -1,5 +1,6 @@
-# glad
-glad for winapi32
+## WGLAD
+
+* A Library for Win32
 
 # install
 
