@@ -10,20 +10,20 @@ set(CMAKE_SUPPRESS_REGENERATION true)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 
-set(GLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(GLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(WGLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(WGLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 if(HAS_PARENT)
 message(STATUS "this is subdirectory")
-set(GLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
-set(GLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib PARENT_SCOPE)
+set(WGLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
+set(WGLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib PARENT_SCOPE)
 endif()
 
 set(SRCS 
-    ${GLAD_INC_DIR}/wglad/wglad.h 
-    ${GLAD_INC_DIR}/wglad/wglad.cpp
-    ${GLAD_INC_DIR}/wglad/glad.h
-    ${GLAD_INC_DIR}/wglad/glad.c
+    ${WGLAD_INC_DIR}/wglad/wglad.h 
+    ${WGLAD_INC_DIR}/wglad/wglad.cpp
+    ${WGLAD_INC_DIR}/wglad/glad.h
+    ${WGLAD_INC_DIR}/wglad/glad.c
 )
 add_library(wglad STATIC ${SRCS})
 add_library(lib::wglad ALIAS wglad)
@@ -33,19 +33,19 @@ add_library(lib::wglad ALIAS wglad)
 
 #set build out files
 if(DEFINED LIB_DIR)
-    message(STATUS "glob on")
-    set(GLAD_LIB_DIR ${LIB_DIR})
-    set(GLAD_LIB_DIR ${LIB_DIR} PARENT_SCOPE)
+    message(STATUS "LIB_DIR from parent")
+    set(WGLAD_LIB_DIR ${LIB_DIR})
+    set(WGLAD_LIB_DIR ${LIB_DIR} PARENT_SCOPE)
 endif()
 
-message(STATUS "GLAD_INC_DIR : ${GLAD_INC_DIR}")
-message(STATUS "GLAD_LIB_DIR : ${GLAD_LIB_DIR}")
+message(STATUS "GLAD_INC_DIR : ${WGLAD_INC_DIR}")
+message(STATUS "GLAD_LIB_DIR : ${WGLAD_LIB_DIR}")
 
 set_target_properties(wglad  PROPERTIES
-    INCLUDE_DIRECTORIES ${GLAD_INC_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${GLAD_LIB_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${GLAD_LIB_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${GLAD_LIB_DIR})
+    INCLUDE_DIRECTORIES ${WGLAD_INC_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY ${WGLAD_LIB_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${WGLAD_LIB_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${WGLAD_LIB_DIR})
 
 
 
