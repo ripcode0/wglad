@@ -10,7 +10,7 @@ if(NOT EXISTS ${INSTALL_GLAD_DIR})
     execute_process(
         COMMAND git clone https://github.com/ripcode0/wglad.git ${INSTALL_GLAD_DIR})
         file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/.git)
-        file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/mocdule)
+        file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/module)
         file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/.gitignore)
 else()
     #check out each file
@@ -29,7 +29,7 @@ else()
         execute_process(
             COMMAND git clone https://github.com/ripcode0/wglad.git ${INSTALL_GLAD_DIR})
         file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/.git)
-        file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/mocdule)
+        file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/module)
         file(REMOVE_RECURSE ${INSTALL_GLAD_DIR}/.gitignore)
     endif()
 endif()
