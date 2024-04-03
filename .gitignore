@@ -26,6 +26,7 @@ _deps
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+
 # Local History for Visual Studio Code
 .history/
 
@@ -71,6 +72,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Bb]uild/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
