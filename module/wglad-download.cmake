@@ -34,4 +34,4 @@ else()
     endif()
 endif()
 
-add_subdirectory(External/glad)
+add_subdirectory(External/wglad)
