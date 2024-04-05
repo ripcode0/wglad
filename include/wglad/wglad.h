@@ -11,16 +11,10 @@
 #include <windows.h>
 #include "wglad/wglext.h"
 
-//#include <GL/GL.h> //[GL_VERSION_1_1]
 #include <stdio.h>
 #include <stdlib.h>
 #include <algorithm>
-
-
-// typedef BOOL (WINAPI * PFNWGLCHOOSEPIXELFORMATARBPROC) (HDC hdc, const int *piAttribIList, const FLOAT *pfAttribFList, UINT nMaxFormats, int *piFormats, UINT *nNumFormats);
-// typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int *attribList);
-// typedef BOOL (WINAPI * PFNWGLMAKECONTEXTCURRENTARBPROC) (HDC hDrawDC, HDC hReadDC, HGLRC hglrc);
-// typedef BOOL (WINAPI * PFNWGLSWAPINTERVALEXTPROC) (int interval);
+#include <iostream>
 
 #define GL_EXT_PROC(type, func) \
 do{\
