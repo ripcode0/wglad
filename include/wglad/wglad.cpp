@@ -11,7 +11,7 @@ PFNWGLCREATECONTEXTATTRIBSARBPROC       _wglCreateContextAttribsARB = NULL;
 PFNWGLMAKECONTEXTCURRENTARBPROC			_wglMakeContextCurrentARB = NULL;
 PFNWGLSWAPINTERVALEXTPROC				_wglSwapIntervalEXT = NULL;
 
-void WGL::LoadGLExtension()
+void WGL::loadGLExtension()
 {
     static bool isLoaded = false;
     if(isLoaded) return;
@@ -58,9 +58,9 @@ void WGL::LoadGLExtension()
 void APIENTRY glDebugCallback(GLenum source, GLenum type, GLuint id,
 	GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 
-HRESULT WGL::LoadGladFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
+HRESULT WGL::createGLContextFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
 {
-	LoadGLExtension();
+	loadGLExtension();
 	
 	HDC dc = GetDC(hwnd);
 	HGLRC rc = nullptr;
@@ -124,6 +124,11 @@ HRESULT WGL::LoadGladFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
 	if (GL_ARB_direct_state_access) {
 		printf("DSA is supported\n");
 	}
+
+	if(hasExtension("GL_ARB_direct_state_access")){
+		printf("DSA enabled");
+	}
+
 	if (GL_KHR_debug) {
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -147,8 +152,30 @@ HRESULT WGL::LoadGladFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
     return S_OK;
 }
 
+bool WGL::hasExtension(const char *name)
+{
+	GLint nExtensions{};
+	glGetIntegerv(GL_NUM_EXTENSIONS , &nExtensions);
+
+	for(int i = 0; i < nExtensions; ++i){
+		const char* ext = (const char*)glGetStringi(GL_EXTENSIONS, i);
+		if(strcmp(ext, name) == 0){
+			return true;
+		}
+	}
+    return false;
+}
+void WGL::releaseGLContext(HWND hwnd, HGLRC rc, HDC dc)
+{
+	wglMakeCurrent(0, 0);
+	wglDeleteContext(rc);
+	ReleaseDC(hwnd, dc);
+	rc = nullptr;
+	dc = nullptr;
+}
+
 void APIENTRY glDebugCallback(GLenum source, GLenum type, GLuint id,
-	GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
+                              GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
 {
 	//ingnore warnings
 	if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;

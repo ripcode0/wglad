@@ -5,8 +5,6 @@
 
 #pragma warning(disable:4005)
 
-
-
 #include "wglad/glad.h"
 #include <windows.h>
 #include "wglad/wglext.h"
@@ -15,6 +13,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <iostream>
+
 
 #define GL_EXT_PROC(type, func) \
 do{\
@@ -40,6 +39,25 @@ GLAPI PFNWGLSWAPINTERVALEXTPROC					_wglSwapIntervalEXT;
 #define wglSwapIntervalEXT						_wglSwapIntervalEXT
 
 namespace WGL {
-    void LoadGLExtension();
-    HRESULT LoadGladFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC);
+
+	/// @brief load glad function pointers and extensions
+	void 	loadGLExtension();
+
+	/// @brief create the resouce of Graphics Device
+	/// @param hwnd specifies the window handle
+	/// @param ppRC return the address of a graphics device handle created.
+	/// @param ppDC return the address of a window context handle created.
+	/// @return type HRESULT  
+	HRESULT createGLContextFromHwnd(_In_ HWND hwnd, _Out_ HGLRC* ppRC, _Out_ HDC* ppDC);
+
+	/// @brief 
+	/// @param name : return bool supported extension by name
+	/// @return 
+	bool	hasExtension(const char* name);
+
+	/// @brief release the resource of HGLRC and HDC
+	/// @param hwnd specifies the window andle
+	/// @param rc the graphic device of the object to free resource of
+	/// @param dc the device context of the object to free resource of
+	void releaseGLContext(HWND hwnd, HGLRC rc, HDC dc);
 };
