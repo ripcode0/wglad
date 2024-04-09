@@ -1,6 +1,6 @@
 #include "wglad/wglad.h"
 
-static void wglad_error(char *msg)
+static void wglad_error(const char *msg)
 {
     MessageBoxA(NULL, msg, "Error", MB_OK | MB_ICONEXCLAMATION);
     exit(EXIT_FAILURE);
@@ -142,10 +142,10 @@ HRESULT WGL::createGLContextFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC
 	const char* hardware = (char*)glGetString(GL_RENDERER);
 	const char* glslVer = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 	
-	// char apiInfo[128]{};
-	// sprintf_s(apiInfo, "API  : OpenGL %s\nGLSL : %s\nHW   : %s\n", version, glslVer, hardware);
-	// printf(apiInfo);
-	//std::move(pDC)
+	char apiInfo[128]{};
+	sprintf_s(apiInfo, "API  : OpenGL %s\nGLSL : %s\nHW   : %s\n", version, glslVer, hardware);
+	printf(apiInfo);
+	
 	*ppDC = dc;
 	*ppRC = rc;
 
