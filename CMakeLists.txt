@@ -12,11 +12,13 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(WGLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(WGLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(WGLAD_NAME wglad)
 
 if(HAS_PARENT)
-message(STATUS "this is subdirectory")
+#output variables
 set(WGLAD_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
 set(WGLAD_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib PARENT_SCOPE)
+set(WGLAD_NAME ${WGLAD_NAME} PARENT_SCOPE)
 endif()
 
 set(SRCS 
@@ -33,7 +35,6 @@ add_library(lib::wglad ALIAS wglad)
 
 #set build out files
 if(DEFINED LIB_DIR)
-    message(STATUS "LIB_DIR from parent")
     set(WGLAD_LIB_DIR ${LIB_DIR})
     set(WGLAD_LIB_DIR ${LIB_DIR} PARENT_SCOPE)
 endif()
