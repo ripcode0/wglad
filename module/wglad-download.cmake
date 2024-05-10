@@ -7,7 +7,7 @@ endif()
 #check out glad dir
 set(GLAD_DOWNLOAD_REQUIRED FALSE)
 if(NOT EXISTS ${WGLAD_INSTALL_DIR})
-    message(STATUS "downloading... wglad")
+    message(STATUS "[wglad] downloading... wglad")
     execute_process(
         COMMAND git clone https://github.com/ripcode0/wglad.git ${WGLAD_INSTALL_DIR})
         file(REMOVE_RECURSE ${WGLAD_INSTALL_DIR}/.git)
@@ -25,7 +25,7 @@ else()
         set(GLAD_DOWNLOAD_REQUIRED TRUE)
     endif()
     if(GLAD_DOWNLOAD_REQUIRED)
-        message(STATUS "downloading... wglad")
+        message(STATUS "[wglad] downloading... wglad")
         file(REMOVE_RECURSE ${WGLAD_INSTALL_DIR})
         execute_process(
             COMMAND git clone https://github.com/ripcode0/wglad.git ${WGLAD_INSTALL_DIR})
