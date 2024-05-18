@@ -77,4 +77,4 @@ install(
 install(DIRECTORY include/ 
     DESTINATION include FILES_MATCHING PATTERN "*.h")
 
-add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)
+#add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)
