@@ -12,16 +12,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(WGLAD_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(wglad_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(wglad_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(wglad_NAME wglad)
-
-if(HAS_PARENT)
-#output variables
-set(wglad_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(wglad_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(wglad_NAME ${wglad_NAME} PARENT_SCOPE)
+if(NOT wglad_LIB_DIR)
+    set(wglad_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 endif()
 
+#is top root directory?
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     option(WGLAD_EXPORT "set export variables for external jroject" OFF)
 else()
@@ -42,13 +37,6 @@ if(WGLAD_EXPORT)
     set(wglad_LIBRARIES wglad PARENT_SCOPE)
     set(wglad_INC_DIR ${wglad_INC_DIR} PARENT_SCOPE)
     set(wglad_LIB_DIR ${wglad_LIB_DIR} PARENT_SCOPE)
-endif()
-
-
-#set build out files
-if(DEFINED LIB_DIR)
-    set(wglad_LIB_DIR ${LIB_DIR})
-    set(wglad_LIB_DIR ${LIB_DIR} PARENT_SCOPE)
 endif()
 
 message(STATUS "GLAD_INC_DIR : ${wglad_INC_DIR}")
