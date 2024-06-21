@@ -38,26 +38,26 @@ GLAPI PFNWGLSWAPINTERVALEXTPROC					_wglSwapIntervalEXT;
 #define wglMakeContextCurrentARB 				_wglMakeContextCurrentARB
 #define wglSwapIntervalEXT						_wglSwapIntervalEXT
 
-namespace WGL {
+namespace wglad {
 
 	/// @brief load glad function pointers and extensions
-	void 	loadGLExtension();
+	void 	load_gl_extension();
 
 	/// @brief create the resouce of Graphics Device
 	/// @param hwnd specifies the window handle
 	/// @param ppRC return the address of a graphics device handle created.
 	/// @param ppDC return the address of a window context handle created.
 	/// @return type HRESULT  
-	HRESULT createGLContextFromHwnd(_In_ HWND hwnd, _Out_ HGLRC* ppRC, _Out_ HDC* ppDC);
+	HRESULT create_context_from_hwnd(_In_ HWND hwnd, _Out_ HGLRC* ppRC, _Out_ HDC* ppDC);
 
 	/// @brief 
 	/// @param name : return bool supported extension by name
 	/// @return 
-	bool	hasExtension(const char* name);
+	bool	has_extension(const char* name);
 
 	/// @brief release the resource of HGLRC and HDC
 	/// @param hwnd specifies the window andle
 	/// @param rc the graphic device of the object to free resource of
 	/// @param dc the device context of the object to free resource of
-	void releaseGLContext(HWND hwnd, HGLRC rc, HDC dc);
+	void release_context(HWND hwnd, HGLRC rc, HDC dc);
 };

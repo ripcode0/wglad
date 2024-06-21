@@ -11,13 +11,13 @@ PFNWGLCREATECONTEXTATTRIBSARBPROC       _wglCreateContextAttribsARB = NULL;
 PFNWGLMAKECONTEXTCURRENTARBPROC			_wglMakeContextCurrentARB = NULL;
 PFNWGLSWAPINTERVALEXTPROC				_wglSwapIntervalEXT = NULL;
 
-void WGL::loadGLExtension()
+void wglad::load_gl_extension()
 {
     static bool isLoaded = false;
     if(isLoaded) return;
 
-	HWND hwnd = CreateWindowEx(NULL, TEXT("STATIC"), TEXT(""), NULL, 0, 0,
-		0, 0, NULL, NULL, GetModuleHandle(NULL), NULL);
+	HWND hwnd = CreateWindowExA(0, "STATIC", "", 0, 0, 0,
+		0, 0, nullptr, (HMENU)0, GetModuleHandleA(nullptr), nullptr);
 
 	HDC dc = GetDC(hwnd);
 
@@ -58,9 +58,9 @@ void WGL::loadGLExtension()
 void APIENTRY glDebugCallback(GLenum source, GLenum type, GLuint id,
 	GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 
-HRESULT WGL::createGLContextFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
+HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
 {
-	loadGLExtension();
+	load_gl_extension();
 	
 	HDC dc = GetDC(hwnd);
 	HGLRC rc = nullptr;
@@ -122,11 +122,11 @@ HRESULT WGL::createGLContextFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC
 		glDepthRange(0.0f, 1.0f);
 	}
 	if (GL_ARB_direct_state_access) {
-		printf("DSA is supported\n");
+		printf("[wglad] DSA is supported\n");
 	}
 
-	if(hasExtension("GL_ARB_direct_state_access")){
-		printf("DSA enabled");
+	if(has_extension("GL_ARB_direct_state_access")){
+		printf("[wglad] DSA enabled\n");
 	}
 
 	if (GL_KHR_debug) {
@@ -152,7 +152,7 @@ HRESULT WGL::createGLContextFromHwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC
     return S_OK;
 }
 
-bool WGL::hasExtension(const char *name)
+bool wglad::has_extension(const char *name)
 {
 	GLint nExtensions{};
 	glGetIntegerv(GL_NUM_EXTENSIONS , &nExtensions);
@@ -165,7 +165,7 @@ bool WGL::hasExtension(const char *name)
 	}
     return false;
 }
-void WGL::releaseGLContext(HWND hwnd, HGLRC rc, HDC dc)
+void wglad::release_context(HWND hwnd, HGLRC rc, HDC dc)
 {
 	wglMakeCurrent(0, 0);
 	wglDeleteContext(rc);
