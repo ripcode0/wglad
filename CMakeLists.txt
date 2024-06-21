@@ -33,6 +33,10 @@ set(wglad_srcs
 add_library(wglad STATIC ${wglad_srcs})
 add_library(lib::wglad ALIAS wglad)
 
+# if(HAS_PARENT)
+#     set(wglad ${wglad} PARENT_SCOPE)
+# endif()
+
 if(WGLAD_EXPORT)
     set(wglad_LIBRARIES wglad PARENT_SCOPE)
     set(wglad_INC_DIR ${wglad_INC_DIR} PARENT_SCOPE)
