@@ -55,6 +55,7 @@ set_target_properties(wglad  PROPERTIES
 
 #install
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    #message(STATUS "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME} is dangerous")
     set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 endif()
 
@@ -68,5 +69,7 @@ install(
 
 install(DIRECTORY include/ 
     DESTINATION include FILES_MATCHING PATTERN "*.h")
+
+install(FILES module/Findwglad.cmake DESTINATION cmake)
 
 #add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)
