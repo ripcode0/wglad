@@ -31,7 +31,7 @@ set(wglad_srcs
 )
 
 add_library(wglad STATIC ${wglad_srcs})
-add_library(wglad ALIAS wglad)
+add_library(wglad::wglad ALIAS wglad)
 
 # if(HAS_PARENT)
 #     set(wglad ${wglad} PARENT_SCOPE)
