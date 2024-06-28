@@ -1,5 +1,5 @@
-{
-    "cmake.configureOnOpen": false,
-    "cmake.sourceDirectory": "${workspaceFolder}/examples/findmodule",
-    "cmake.buildDirectory": "${workspaceFolder}/examples/findmodule/build"
-}
+// {
+//     "cmake.configureOnOpen": false,
+//     "cmake.sourceDirectory": "${workspaceFolder}/examples/findmodule",
+//     "cmake.buildDirectory": "${workspaceFolder}/examples/findmodule/build"
+// }
