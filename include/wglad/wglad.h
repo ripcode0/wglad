@@ -59,5 +59,5 @@ namespace wglad {
 	/// @param hwnd specifies the window andle
 	/// @param rc the graphic device of the object to free resource of
 	/// @param dc the device context of the object to free resource of
-	void release_context(HWND hwnd, HGLRC rc, HDC dc);
+	void release_context(HWND hwnd, HGLRC* rc, HDC* dc);
 };

@@ -3,3 +3,8 @@
 //     "cmake.sourceDirectory": "${workspaceFolder}/examples/findmodule",
 //     "cmake.buildDirectory": "${workspaceFolder}/examples/findmodule/build"
 // }
+{
+    "cmake.configureArgs": [
+        "-DBUILD_EXAMPLE:BOOL=TRUE"
+    ]
+}

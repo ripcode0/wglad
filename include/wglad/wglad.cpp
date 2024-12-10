@@ -118,7 +118,7 @@ HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ 
 
 	if (GL_ARB_clip_control) {
 		//https://www.khronos.org/registry/OpenGL/extensions/ARB/ARB_clip_control.txt
-		glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE);
+		glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
 		glDepthRange(0.0f, 1.0f);
 	}
 	if (GL_ARB_direct_state_access) {
@@ -142,9 +142,9 @@ HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ 
 	const char* hardware = (char*)glGetString(GL_RENDERER);
 	const char* glslVer = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 	
-	char apiInfo[128]{};
-	sprintf_s(apiInfo, "API  : OpenGL %s\nGLSL : %s\nHW   : %s\n", version, glslVer, hardware);
-	
+	char api_infos[128]{};
+	sprintf_s(api_infos, "[wglad] API  : OpenGL %s\n[wglad] GLSL : %s\n[wglad] HW   : %s\n", version, glslVer, hardware);
+	printf("%s\n", api_infos);
 	
 	*ppDC = dc;
 	*ppRC = rc;
@@ -165,11 +165,11 @@ bool wglad::has_extension(const char *name)
 	}
     return false;
 }
-void wglad::release_context(HWND hwnd, HGLRC rc, HDC dc)
+void wglad::release_context(HWND hwnd, HGLRC* rc, HDC* dc)
 {
 	wglMakeCurrent(0, 0);
-	wglDeleteContext(rc);
-	ReleaseDC(hwnd, dc);
+	wglDeleteContext(*rc);
+	ReleaseDC(hwnd, *dc);
 	rc = nullptr;
 	dc = nullptr;
 }

@@ -33,6 +33,11 @@ set(wglad_srcs
 add_library(wglad STATIC ${wglad_srcs})
 add_library(lib::wglad ALIAS wglad)
 
+set_target_properties(wglad PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/include
+    INTERFACE_LINK_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/lib
+)
+
 # if(HAS_PARENT)
 #     set(wglad ${wglad} PARENT_SCOPE)
 # endif()
@@ -86,3 +91,7 @@ get_target_property(pdb_path wglad TARGET_PDB_FILE)
 message("PDB path : ${pdb_path}")
 
 #add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)
+
+if(BUILD_EXAMPLE)
+    add_subdirectory(examples)
+endif()
