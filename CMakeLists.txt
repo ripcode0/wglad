@@ -50,8 +50,10 @@ set_target_properties(wglad  PROPERTIES
     INCLUDE_DIRECTORIES ${wglad_INC_DIR}
     ARCHIVE_OUTPUT_DIRECTORY ${wglad_LIB_DIR}
     ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${wglad_LIB_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${wglad_LIB_DIR})
+    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${wglad_LIB_DIR}
+    )
 
+set(CMAKE_PDB_OUTPUT_DIRECTORY_DEBUG ${wglad_LIB_DIR})
 
 #install
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -59,6 +61,7 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 endif()
 
+#installation
 install(
     TARGETS wglad
     INCLUDES DESTINATION include
@@ -71,5 +74,15 @@ install(DIRECTORY include/
     DESTINATION include FILES_MATCHING PATTERN "*.h")
 
 install(FILES module/Findwglad.cmake DESTINATION cmake)
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+
+    message("this is DEBUG!!!!")
+    #install(FILES $<TARGET_PDB_FILE:wglad> DESTINATION lib CONFIGURATIONS Debug)
+endif()
+
+get_target_property(pdb_path wglad TARGET_PDB_FILE)
+
+message("PDB path : ${pdb_path}")
 
 #add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)

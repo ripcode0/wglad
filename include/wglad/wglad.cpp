@@ -144,7 +144,7 @@ HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ 
 	
 	char apiInfo[128]{};
 	sprintf_s(apiInfo, "API  : OpenGL %s\nGLSL : %s\nHW   : %s\n", version, glslVer, hardware);
-	printf(apiInfo);
+	
 	
 	*ppDC = dc;
 	*ppRC = rc;
