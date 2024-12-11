@@ -47,7 +47,7 @@ int main(int args, char* argv[])
     HDC dc{};
     HGLRC rc{};
 
-    wglad::create_context_from_hwnd(hwnd, &rc, &dc);
+    wglad::create_context_from_hwnd(hwnd, &rc, &dc, true);
 
     ShowWindow(hwnd, SW_SHOW);
 

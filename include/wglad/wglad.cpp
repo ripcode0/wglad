@@ -58,7 +58,11 @@ void wglad::load_gl_extension()
 void APIENTRY glDebugCallback(GLenum source, GLenum type, GLuint id,
 	GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 
-HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ HDC* ppDC)
+HRESULT wglad::create_context_from_hwnd(
+	HWND hwnd,
+	HGLRC* ppRC,
+	HDC* ppDC,
+	bool enalble_directx_integration)
 {
 	load_gl_extension();
 	
@@ -118,18 +122,18 @@ HRESULT wglad::create_context_from_hwnd(_In_ HWND hwnd,_Out_ HGLRC* ppRC, _Out_ 
 
 	if (GL_ARB_clip_control) {
 		//https://www.khronos.org/registry/OpenGL/extensions/ARB/ARB_clip_control.txt
-		glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
-		glDepthRange(0.0f, 1.0f);
+		if(enalble_directx_integration){
+			printf("[wglad] directx NDC & Clip Space is integrated\n");
+			glClipControl(GL_UPPER_LEFT, GL_ZERO_TO_ONE);
+			glDepthRange(0.0f, 1.0f);
+		}
 	}
 	if (GL_ARB_direct_state_access) {
 		printf("[wglad] DSA is supported\n");
 	}
 
-	if(has_extension("GL_ARB_direct_state_access")){
-		printf("[wglad] DSA enabled\n");
-	}
-
 	if (GL_KHR_debug) {
+		printf("[wglad] KHR Debug Enabled\n");
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(glDebugCallback, nullptr);

@@ -48,7 +48,11 @@ namespace wglad {
 	/// @param ppRC return the address of a graphics device handle created.
 	/// @param ppDC return the address of a window context handle created.
 	/// @return type HRESULT  
-	HRESULT create_context_from_hwnd(_In_ HWND hwnd, _Out_ HGLRC* ppRC, _Out_ HDC* ppDC);
+	HRESULT create_context_from_hwnd(
+		HWND hwnd,
+		HGLRC* ppRC,
+		HDC* ppDC,
+		bool enable_directx_integration = false);
 
 	/// @brief 
 	/// @param name : return bool supported extension by name
