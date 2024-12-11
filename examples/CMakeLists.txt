@@ -6,6 +6,12 @@ if(WIN32)
     endif()
 endif()
 
-add_executable(exec EXCLUDE_FROM_ALL exec_win32.cpp)
+add_executable(exec exec_win32.cpp)
 
-target_link_libraries(exec PRIVATE lib::wglad)
+target_link_libraries(exec PRIVATE wglad::wglad opengl32 gdi32)
+
+if(MINGW)
+    message("-- [wglad] mingw ... ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+    target_compile_options(exec PRIVATE )
+
+endif()

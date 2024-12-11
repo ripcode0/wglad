@@ -31,7 +31,7 @@ set(wglad_srcs
 )
 
 add_library(wglad STATIC ${wglad_srcs})
-add_library(lib::wglad ALIAS wglad)
+add_library(wglad::wglad ALIAS wglad)
 
 set_target_properties(wglad PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -62,8 +62,8 @@ set(CMAKE_PDB_OUTPUT_DIRECTORY_DEBUG ${wglad_LIB_DIR})
 
 #install
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    #message(STATUS "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME} is dangerous")
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
+    message(STATUS "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME} is dangerous")
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "defualt install path" FORCE)
 endif()
 
 #installation
