@@ -1,13 +1,14 @@
-## WGLAD `opengl for window api`
+## wglad
+ + ## `glad` for win32
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)]()
 
-`WGLAD` is a simplified and user-friendly wrapper around **GLAD**, designed to streamline OpenGL loading and make it more accessible for developers. With `WGLAD`, integrating GLAD into your project is faster, easier, and more flexible.
+`wglad` is a simplified and user-friendly wrapper around **glad**, designed to streamline OpenGL loading and make it more accessible for developers. With `wglad`, integrating GLAD into your project is faster, easier, and more flexible.
 
 ---
 
-## 🚀 Features
+### 🚀 Features
 
 - **Simplified Integration**: Replace complex GLAD setup with a streamlined interface.
 - **Flexible Usage**: Multiple options to integrate WGLAD into your project.
@@ -16,19 +17,19 @@
 - **Customizable Configurations**: Tailor the behavior to fit your project's requirements.
 ---
 
-## 🛠️ Technologies
+### 🛠️ Technologies
 
 - **Language**: C/C++
 - **GLAD**: The foundation for OpenGL loading.
 - **Build Tools**: Supports integration with CMake or manual project setups.
 - **Compilers**: msvc / llvm-clang / mingw-gcc
-- **TODO**: intergration with linux ...
+- **TODO**: intergration with linux (xlib)...
 
 ---
 
-## 📦 Installation
+### 📦 Installation
 
-### Option 1: Clone and Include
+#### Option 1: Clone and Include
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/WGLAD.git
@@ -37,14 +38,14 @@
 2. Include WGLAD source files in your project.
 3. Ensure you have the necessary GLAD files generated from the [GLAD Generator](https://gen.glad.sh/).
 
-### Option 2: Add as a Submodule
+#### Option 2: Add as a Submodule
 1. Add WGLAD as a submodule to your repository:
     ```bash
     git submodule add https://github.com/yourusername/WGLAD.git
     ```
 2. Update your build system to include WGLAD.
 
-### Option 3: Precompiled Library
+#### Option 3: Precompiled Library
 1. Download the precompiled WGLAD library from the [Releases](https://github.com/yourusername/WGLAD/releases).
 2. Link the library to your project:
     - For CMake:
@@ -55,29 +56,37 @@
 
 ---
 
-## 📖 Usage
+### 📖 Usage
 
-1. Include WGLAD in your project:
+1. Include `wglad` in your project:
     ```cpp
-    #include "wglad.h"
+    #include "<wglad/wglad.h>
     ```
 
-2. Initialize WGLAD in your OpenGL application:
+2. Initialize `wglad` in your OpenGL application:
     ```cpp
-    if (!wglad::initialize()) {
-        std::cerr << "Failed to initialize WGLAD!" << std::endl;
-        return -1;
-    }
+    HDC dc{};
+    HGLRC rc{};
+
+    wglad::create_context_from_hwnd(hwnd, &rc, &dc, true);
     ```
 
-3. Start writing OpenGL code without worrying about the loading process:
+3. Render process:
     ```cpp
+    glClearColor(0.2f, 0.25f, 0.3f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ```
 
+    //render contents
+
+    ::SwapBuffers(dc);
+    ```
+4. Discard `wglad` context:
+    ```cpp
+    wglad::release_context(hwnd, &rc, &dc);
+    ```
 ---
 
-## 🤝 Contributing
+### 🤝 Contributing
 
 We welcome contributions to improve WGLAD:
 
@@ -89,18 +98,9 @@ We welcome contributions to improve WGLAD:
 
 ---
 
-## 📝 License
+### 📝 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## 📧 Contact
-
-For inquiries, suggestions, or feedback:
-
-- **Email**: yourname@example.com
-- **GitHub**: [yourusername](https://github.com/yourusername)
 
 ---
 
