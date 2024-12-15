@@ -1,4 +1,4 @@
-#include "wglad/wglad.h"
+#include <wglad/wglad.h>
 
 static void wglad_error(const char *msg)
 {

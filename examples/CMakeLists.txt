@@ -5,6 +5,14 @@ if(WIN32)
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     endif()
 endif()
+#set(CMAKE_FIND_DEBUG_MODE ON)
+find_package(wglad REQUIRED)
+
+if(wglad_FOUND)
+message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
+else()
+message("-- [wglad] faild to find")
+endif()
 
 add_executable(exec exec_win32.cpp)
 

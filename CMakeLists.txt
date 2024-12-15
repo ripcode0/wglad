@@ -2,95 +2,80 @@ cmake_minimum_required(VERSION 3.28)
 
 get_directory_property(HAS_PARENT PARENT_DIRECTORY)
 
-if(NOT HAS_PARENT)
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    set(wglad_standalone TRUE)
+else()
+    set(wglad_standalone FALSE)
+endif()
+
+if(wglad_standalone)
     project(wglad VERSION 1.0.0 LANGUAGES C CXX)
 endif()
 
 set(CMAKE_SUPPRESS_REGENERATION true)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(WGLAD_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-
-set(wglad_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-if(NOT wglad_LIB_DIR)
-    set(wglad_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-endif()
-
-#is top root directory?
-if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    option(WGLAD_EXPORT "set export variables for external jroject" OFF)
-else()
-    option(WGLAD_EXPORT "set export variables for external jroject" ON)
-endif()
-
 set(wglad_srcs 
-    ${wglad_INC_DIR}/wglad/wglad.h 
-    ${wglad_INC_DIR}/wglad/wglad.cpp
-    ${wglad_INC_DIR}/wglad/glad.h
-    ${wglad_INC_DIR}/wglad/glad.c
+    ${CMAKE_SOURCE_DIR}/srcs/wglad/wglad.h 
+    ${CMAKE_SOURCE_DIR}/srcs/wglad/wglad.cpp
+    ${CMAKE_SOURCE_DIR}/srcs/wglad/glad.h
+    ${CMAKE_SOURCE_DIR}/srcs/wglad/glad.c
 )
+include(GNUInstallDirs)
 
 add_library(wglad STATIC ${wglad_srcs})
 add_library(wglad::wglad ALIAS wglad)
 
-set_target_properties(wglad PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/include
-    INTERFACE_LINK_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/lib
+target_include_directories(wglad
+    PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/srcs>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
-
-# if(HAS_PARENT)
-#     set(wglad ${wglad} PARENT_SCOPE)
-# endif()
-
-if(WGLAD_EXPORT)
-    set(wglad_LIBRARIES wglad PARENT_SCOPE)
-    set(wglad_INC_DIR ${wglad_INC_DIR} PARENT_SCOPE)
-    set(wglad_LIB_DIR ${wglad_LIB_DIR} PARENT_SCOPE)
-endif()
-
-message(STATUS "GLAD_INC_DIR : ${wglad_INC_DIR}")
-message(STATUS "GLAD_LIB_DIR : ${wglad_LIB_DIR}")
-
-set_target_properties(wglad  PROPERTIES
-    INCLUDE_DIRECTORIES ${wglad_INC_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${wglad_LIB_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${wglad_LIB_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${wglad_LIB_DIR}
-    )
-
-set(CMAKE_PDB_OUTPUT_DIRECTORY_DEBUG ${wglad_LIB_DIR})
 
 #install
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    message(STATUS "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME} is dangerous")
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "defualt install path" FORCE)
+    set(install_dir ${CMAKE_CURRENT_BINARY_DIR}/install)
+    set(CMAKE_INSTALL_PREFIX "${install_dir}" CACHE PATH "defualt install path" FORCE)
 endif()
+
 
 #installation
+
 install(
     TARGETS wglad
-    INCLUDES DESTINATION include
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
+    EXPORT wglad-targets
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-install(DIRECTORY include/ 
-    DESTINATION include FILES_MATCHING PATTERN "*.h")
+install(
+    DIRECTORY srcs/ 
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN *.h)
 
-install(FILES module/Findwglad.cmake DESTINATION cmake)
+install(EXPORT wglad-targets
+    FILE wglad-targets.cmake
+    NAMESPACE wglad::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/wglad
+)
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
+include(CMakePackageConfigHelpers)
 
-    message("this is DEBUG!!!!")
-    #install(FILES $<TARGET_PDB_FILE:wglad> DESTINATION lib CONFIGURATIONS Debug)
+configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/module/wglad-config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/wglad-config.cmake
+    INSTALL_DESTINATION ${CMAKE_ISNTALL_LIBDIR}/cmake/wglad
+)
+
+install(FILES 
+    ${CMAKE_CURRENT_BINARY_DIR}/wglad-config.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/wglad
+)
+if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_CONFIGURATION_TYPES STREQUAL "Debug")
+    message("-- [wglad] build type    : Debug")
 endif()
-
-get_target_property(pdb_path wglad TARGET_PDB_FILE)
-
-message("PDB path : ${pdb_path}")
-
-#add_custom_target(installing COMMAND ${CMAKE_COMMAND} -E --install --prefix installed)
 
 if(BUILD_EXAMPLE)
     add_subdirectory(examples)
