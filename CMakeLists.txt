@@ -16,10 +16,10 @@ set(CMAKE_SUPPRESS_REGENERATION true)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(wglad_srcs 
-    ${CMAKE_SOURCE_DIR}/srcs/wglad/wglad.h 
-    ${CMAKE_SOURCE_DIR}/srcs/wglad/wglad.cpp
-    ${CMAKE_SOURCE_DIR}/srcs/wglad/glad.h
-    ${CMAKE_SOURCE_DIR}/srcs/wglad/glad.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wglad.h 
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wglad.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/glad.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/glad.c
 )
 include(GNUInstallDirs)
 
