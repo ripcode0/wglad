@@ -6,7 +6,7 @@ if(WIN32)
     endif()
 endif()
 #set(CMAKE_FIND_DEBUG_MODE ON)
-find_package(wglad REQUIRED)
+find_package(wglad CONFIG QUIET)
 
 if(wglad_FOUND)
 message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
