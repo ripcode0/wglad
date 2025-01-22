@@ -29,28 +29,34 @@
 
 ### 📦 Installation
 
-#### Option 1: Clone and Include
+#### Option 1: Clone and Build Example
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/WGLAD.git
-    cd WGLAD
+    git clone https://github.com/ripcode0/wglad.git
+    cd wglad
+    cmake -S . -B build -DBUILD_EXAMPLE=ON
+    cmake --build build
     ```
-2. Include WGLAD source files in your project.
-3. Ensure you have the necessary GLAD files generated from the [GLAD Generator](https://gen.glad.sh/).
+2. Include `wglad` source files in your project.
+3. Ensure you have the necessary `GLAD` files generated from the [GLAD Generator](https://gen.glad.sh/).
 
 #### Option 2: Add as a Submodule
-1. Add WGLAD as a submodule to your repository:
+1. Add `wglad` as a submodule to your repository:
     ```bash
-    git submodule add https://github.com/yourusername/WGLAD.git
+    git submodule add https://github.com/ripcode0/wglad.git <submodule-path>/wglad
     ```
 2. Update your build system to include WGLAD.
 
-#### Option 3: Precompiled Library
-1. Download the precompiled WGLAD library from the [Releases](https://github.com/yourusername/WGLAD/releases).
+#### Option 3: Add Subdirectory
+1. Clone or Submodule
 2. Link the library to your project:
     - For CMake:
       ```cmake
-      target_link_libraries(your_project PRIVATE WGLAD)
+      add_subdirectory(wglad)
+      
+      target_link_libraries(your_project PRIVATE wglad)
+      or
+      target_link_libraries(your_project PRIVATE wglad::wglad)
       ```
     - For manual linking, add the `.lib` or `.a` file to your linker options.
 

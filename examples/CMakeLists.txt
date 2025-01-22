@@ -6,9 +6,11 @@ if(WIN32)
     endif()
 endif()
 #set(CMAKE_FIND_DEBUG_MODE ON)
+
 set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external)
 
-find_package(wglad CONFIG)
+find_package(wglad CONFIG QUIET)
+
 
 if(wglad_FOUND)
 message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
