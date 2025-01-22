@@ -2,10 +2,10 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/wglad-targets.cmake")
 
-set(RELATIVE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../../include")
+set_and_check(wglad_INCLUDE_DIRS ${PACKAGE_PREFIX_DIR}/include)
 
-get_filename_component(wglad_INCLUDE_DIRS ${RELATIVE_PATH} ABSOLUTE)
+set(wglad_LIBRARIES wglad::wglad)
 
-set(engine_LIBRARIES wglad::wglad)
+check_required_components(wglad)
 
 set(wglad_FOUND TRUE)

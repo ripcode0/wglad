@@ -50,6 +50,8 @@ install(
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+set(config_location share/wglad)
+
 install(
     DIRECTORY srcs/ 
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -58,7 +60,7 @@ install(
 install(EXPORT wglad-targets
     FILE wglad-targets.cmake
     NAMESPACE wglad::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/wglad
+    DESTINATION ${config_location}
 )
 
 include(CMakePackageConfigHelpers)
@@ -66,12 +68,12 @@ include(CMakePackageConfigHelpers)
 configure_package_config_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/module/wglad-config.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/wglad-config.cmake
-    INSTALL_DESTINATION ${CMAKE_ISNTALL_LIBDIR}/cmake/wglad
+    INSTALL_DESTINATION ${config_location}
 )
 
 install(FILES 
     ${CMAKE_CURRENT_BINARY_DIR}/wglad-config.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/wglad
+    DESTINATION ${config_location}
 )
 if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_CONFIGURATION_TYPES STREQUAL "Debug")
     message("-- [wglad] build type    : Debug")

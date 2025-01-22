@@ -6,7 +6,9 @@ if(WIN32)
     endif()
 endif()
 #set(CMAKE_FIND_DEBUG_MODE ON)
-find_package(wglad REQUIRED)
+set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external)
+
+find_package(wglad CONFIG)
 
 if(wglad_FOUND)
 message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
@@ -20,6 +22,5 @@ target_link_libraries(exec PRIVATE wglad::wglad opengl32 gdi32)
 
 if(MINGW)
     message("-- [wglad] mingw ... ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
-    target_compile_options(exec PRIVATE )
-
+    #target_compile_options(exec PRIVATE )
 endif()
