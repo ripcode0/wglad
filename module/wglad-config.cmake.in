@@ -2,8 +2,7 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/wglad-targets.cmake")
 
-set_and_check(wglad_INCLUDE_DIRS ${PACKAGE_PREFIX_DIR}/include)
-
+set_and_check(wglad_INCLUDE_DIRS ${PACKAGE_PREFIX_DIR}/include/wglad)
 set(wglad_LIBRARIES wglad::wglad)
 
 check_required_components(wglad)

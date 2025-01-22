@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
 
 get_directory_property(HAS_PARENT PARENT_DIRECTORY)
 
@@ -29,7 +29,7 @@ add_library(wglad::wglad ALIAS wglad)
 target_include_directories(wglad
     PUBLIC 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/srcs>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/wglad>
 )
 
 #install
@@ -40,7 +40,7 @@ endif()
 
 
 #installation
-
+install(CODE "message(STATUS \"install wglad configuration : $<CONFIG> ${CMAKE_INSTALL_PREFIX}\")")
 install(
     TARGETS wglad
     EXPORT wglad-targets
@@ -54,7 +54,7 @@ set(config_location share/wglad)
 
 install(
     DIRECTORY srcs/ 
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/wglad
     FILES_MATCHING PATTERN *.h)
 
 install(EXPORT wglad-targets
@@ -75,8 +75,8 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/wglad-config.cmake
     DESTINATION ${config_location}
 )
-if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_CONFIGURATION_TYPES STREQUAL "Debug")
-    message("-- [wglad] build type    : Debug")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_CONFIGURATION_TYPES MATCHES "Debug")
+    message("-- [wglad] build type    : Debug ${CMAKE_CONFIGURATION_TYPES}")
 endif()
 
 if(BUILD_EXAMPLE)
