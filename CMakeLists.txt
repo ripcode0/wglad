@@ -18,8 +18,10 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(wglad_srcs 
     ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wglad.h 
     ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wglad.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/glad.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/glad.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/gl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/gl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wgl.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/srcs/wglad/wgl.c
 )
 include(GNUInstallDirs)
 

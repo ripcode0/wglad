@@ -5,38 +5,12 @@
 
 #pragma warning(disable:4005)
 
-#include "wglad/glad.h"
-#include <windows.h>
-#include "wglad/wglext.h"
+#include <wglad/wgl.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <algorithm>
 #include <iostream>
-
-
-#define GL_EXT_PROC(type, func) \
-do{\
-	char buf[128]; \
-	if(func) { \
-		sprintf_s(buf, "file : %s\nline : %d\n%s's already exist.", __FILE__, __LINE__, #func); \
-		if(MessageBoxA(NULL, buf, "Error", MB_OK)) exit(0); \
-	}\
-    func = (type)wglGetProcAddress(#func);\
-	if(!func) { \
-		sprintf_s(buf, "file : %s\nline : %d\n%s's failed to load.", __FILE__, __LINE__, #func); \
-		if(MessageBoxA(NULL, buf, "Error", MB_OK)) exit(0); \
-	}\
-}while(false)
-
-GLAPI PFNWGLCHOOSEPIXELFORMATARBPROC			_wglChoosePixelFormatARB;
-GLAPI PFNWGLCREATECONTEXTATTRIBSARBPROC         _wglCreateContextAttribsARB;
-GLAPI PFNWGLMAKECONTEXTCURRENTARBPROC			_wglMakeContextCurrentARB;
-GLAPI PFNWGLSWAPINTERVALEXTPROC					_wglSwapIntervalEXT;
-#define wglChoosePixelFormatARB					_wglChoosePixelFormatARB
-#define wglCreateContextAttribsARB				_wglCreateContextAttribsARB
-#define wglMakeContextCurrentARB 				_wglMakeContextCurrentARB
-#define wglSwapIntervalEXT						_wglSwapIntervalEXT
 
 namespace wglad {
 

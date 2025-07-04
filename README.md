@@ -8,7 +8,7 @@
 
 ---
 
-### 🚀 Features
+#### Features
 
 - **Simplified Integration**: Replace complex GLAD setup with a streamlined interface.
 - **Flexible Usage**: Multiple options to integrate WGLAD into your project.
@@ -17,7 +17,7 @@
 - **Customizable Configurations**: Tailor the behavior to fit your project's requirements.
 ---
 
-### 🛠️ Technologies
+#### Technologies
 
 - **Language**: C/C++
 - **GLAD**: The foundation for OpenGL loading.
@@ -27,7 +27,7 @@
 
 ---
 
-### 📦 Installation
+#### Usage
 
 #### Option 1: Clone and Build Example
 1. Clone the repository:
@@ -62,7 +62,7 @@
 
 ---
 
-### 📖 Usage
+#### Usage
 
 1. Include `wglad` in your project:
     ```cpp
@@ -92,7 +92,7 @@
     ```
 ---
 
-### 🤝 Contributing
+### Contributing
 
 We welcome contributions to improve WGLAD:
 
@@ -104,12 +104,12 @@ We welcome contributions to improve WGLAD:
 
 ---
 
-### 📝 License
+### License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-### 🌟 Show your support
+### Show your support
 
 If WGLAD makes your OpenGL development smoother, give it a ⭐ on GitHub!

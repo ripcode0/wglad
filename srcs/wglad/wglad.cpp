@@ -6,11 +6,6 @@ static void wglad_error(const char *msg)
     exit(EXIT_FAILURE);
 }
 
-PFNWGLCHOOSEPIXELFORMATARBPROC			_wglChoosePixelFormatARB = NULL;
-PFNWGLCREATECONTEXTATTRIBSARBPROC       _wglCreateContextAttribsARB = NULL;
-PFNWGLMAKECONTEXTCURRENTARBPROC			_wglMakeContextCurrentARB = NULL;
-PFNWGLSWAPINTERVALEXTPROC				_wglSwapIntervalEXT = NULL;
-
 void wglad::load_gl_extension()
 {
     static bool isLoaded = false;
@@ -37,16 +32,15 @@ void wglad::load_gl_extension()
 	HGLRC rc = wglCreateContext(dc);
     
 	wglMakeCurrent(dc, rc);
-
-	GL_EXT_PROC(PFNWGLCHOOSEPIXELFORMATARBPROC, wglChoosePixelFormatARB);
-	GL_EXT_PROC(PFNWGLCREATECONTEXTATTRIBSARBPROC, wglCreateContextAttribsARB);
-	GL_EXT_PROC(PFNWGLMAKECONTEXTCURRENTARBPROC, wglMakeContextCurrentARB);
-	GL_EXT_PROC(PFNWGLSWAPINTERVALEXTPROC, wglSwapIntervalEXT);
-
-	if(!gladLoadGL()){
-		wglad_error("failed to load glad");
+	
+	if(!gladLoaderLoadWGL(dc)){
+		wglad_error("failed to load wgl");
 	}
-    
+
+	if(!gladLoaderLoadGL()){
+		wglad_error("failed to load gl");
+	}
+	
 	wglMakeCurrent(0, 0);
 	wglDeleteContext(rc);
 	ReleaseDC(hwnd, dc);

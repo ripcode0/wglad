@@ -7,16 +7,16 @@ if(WIN32)
 endif()
 #set(CMAKE_FIND_DEBUG_MODE ON)
 
-set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external)
+# set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/external)
 
-find_package(wglad CONFIG QUIET)
+# find_package(wglad CONFIG QUIET)
 
 
-if(wglad_FOUND)
-message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
-else()
-message("-- [wglad] faild to find")
-endif()
+# if(wglad_FOUND)
+# message("-- [wglad] found ${wglad_INCLUDE_DIRS}")
+# else()
+# message("-- [wglad] faild to find")
+# endif()
 
 add_executable(exec exec_win32.cpp)
 

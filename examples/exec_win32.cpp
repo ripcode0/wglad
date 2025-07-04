@@ -37,7 +37,7 @@ int main(int args, char* argv[])
         printf("failed to register class %s\n", wc.lpszClassName);
         exit(EXIT_FAILURE);
     }
-
+    
     HWND hwnd = CreateWindowEx(
         0, wc.lpszClassName, wc.lpszClassName,
         WS_OVERLAPPEDWINDOW, 
@@ -50,7 +50,7 @@ int main(int args, char* argv[])
     wglad::create_context_from_hwnd(hwnd, &rc, &dc, true);
 
     ShowWindow(hwnd, SW_SHOW);
-
+    wglSwapIntervalEXT(1);
     MSG msg{};
     while (msg.message != WM_QUIT)
     {
